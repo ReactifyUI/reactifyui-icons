@@ -1,6 +1,9 @@
 <div align="center">
 
-# 🎨 ReactifyUI Icons  
+<img src="./Reactifyui-logo.png" alt="ReactifyUI Logo" width="100" />
+
+<h1 align="center">ReactifyUI Icons</h1>
+
 ### **Modern, Beautiful & Fully Customizable React Icon Library**
 
 A next-generation icon system for React — featuring outline, fill, duotone, animated, and decorative styles.  
