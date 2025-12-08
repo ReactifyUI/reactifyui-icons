@@ -1,0 +1,88 @@
+{
+  "name": "reactifyui-icons",
+  "version": "1.0.0",
+  "description": "Modern, beautiful & fully customizable React icon library — outline, fill, duotone, animated & decorative icons. Free forever. MIT licensed.",
+  "author": "ReactifyUI Team",
+  "license": "MIT",
+  "homepage": "https://github.com/ReactifyUI/reactifyui-icons",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ReactifyUI/reactifyui-icons.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ReactifyUI/reactifyui-icons/issues"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./icons/*": {
+      "types": "./dist/types/icons/*.d.ts",
+      "import": "./dist/esm/icons/*.js",
+      "require": "./dist/cjs/icons/*.js"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "Reactifyui-logo.png"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "fetch:svgs": "node ./scripts/fetch-private-svgs.js",
+    "generate:icons": "node ./scripts/generate-icons.js",
+    "generate:registry": "node ./scripts/generate-registry.js",
+    "validate:icons": "node ./scripts/validate-icons.js",
+    "build": "npm run clean && npm run generate:icons && tsup src/react/index.ts --dts --format esm,cjs --out-dir dist",
+    "build:rollup": "rollup -c",
+    "dev": "npm run generate:icons && tsup src/react/index.ts --watch",
+    "test": "vitest",
+    "lint": "eslint . --ext .ts,.tsx",
+    "release": "changeset publish",
+    "version-packages": "changeset version",
+    "changeset": "changeset"
+  },
+  "peerDependencies": {
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.8",
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@size-limit/preset-small-lib": "^12.0.0",
+    "@svgr/core": "^8.1.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^24.10.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.49.0",
+    "@typescript-eslint/parser": "^8.49.0",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.2.3",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "fast-glob": "^3.3.3",
+    "fs-extra": "^11.3.2",
+    "husky": "^9.1.7",
+    "jsdom": "^27.3.0",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
+    "rimraf": "^6.1.2",
+    "rollup": "^4.53.3",
+    "rollup-plugin-dts": "^6.3.0",
+    "size-limit": "^12.0.0",
+    "svgo": "^4.0.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.15"
+  }
+}

@@ -1,0 +1,91 @@
+# ===============================
+# ReactifyUI Icons - Git Ignore
+# ===============================
+
+# ---------------------------------
+# DO NOT COMMIT RAW SVGs EVER
+# ---------------------------------
+private-svgs/
+raw-svgs/
+src/styles/
+*.svg
+
+# ---------------------------------
+# Node + Package Manager Files
+# ---------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# pnpm workspace files
+.pnp.*
+.pnpm-store/
+
+# ---------------------------------
+# Build Output (Generated)
+# ---------------------------------
+dist/
+build/
+esm/
+cjs/
+types/
+
+# Rollup cache
+.rpt2_cache/
+.rollup.cache/
+
+# TSUP cache
+.tsup/
+
+# Storybook build (future)
+storybook-static/
+
+# ---------------------------------
+# TypeScript
+# ---------------------------------
+*.tsbuildinfo
+
+# ---------------------------------
+# Environment Variables
+# ---------------------------------
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# ---------------------------------
+# OS / Editor Files
+# ---------------------------------
+.DS_Store
+Thumbs.db
+
+# ---------------------------------
+# Logs & Temp Files
+# ---------------------------------
+*.log
+*.tmp
+*.lock
+coverage/
+.cache/
+
+# ---------------------------------
+# IDE & Editor Folders
+# ---------------------------------
+.vscode/
+.idea/
+
+# ---------------------------------
+# Changesets (do NOT ignore .changeset!)
+# ---------------------------------
+# (We allow .changeset because it’s required for releases)
+# DON’T ADD ANYTHING HERE!
+
+# ---------------------------------
+# CI Artifacts
+# ---------------------------------
+*.tgz
+*.swp
+.nyc_output/

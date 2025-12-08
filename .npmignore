@@ -1,0 +1,18 @@
+# Don't publish source files
+src/
+scripts/
+tests/
+private-svgs/
+raw-svgs/
+
+# Don't publish config files
+tsconfig.json
+tsconfig.build.json
+rollup.config.js
+tsup.config.ts
+.eslint*
+.prettier*
+.vscode
+
+# Ignore unnecessary files
+*.log
