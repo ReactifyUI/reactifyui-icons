@@ -1,0 +1,12 @@
+{
+  "Home": {
+    "name": "Home",
+    "import": "reactifyui-icons/Home",
+    "importNamed": "reactifyui-icons",
+    "component": "Home",
+    "filePath": "src/react/icons/Home.tsx",
+    "category": "general",
+    "tags": [],
+    "originalSvg": "home.svg"
+  }
+}
