@@ -1,4 +1,5 @@
 import type { IconTheme } from "./iconThemes"
+import type { export IconWeight } from "./iconWeights"
 
 
 export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
@@ -23,6 +24,8 @@ export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 
     /** ReactifyUI theme name */
     theme?: IconTheme
+
+    weight?: IconWeight
 
     /** Preset name from IconProvider */
     preset?: string
@@ -54,6 +57,7 @@ export interface IconPreset {
     color?: string
     strokeWidth?: number
     theme?: IconTheme
+    weight?: IconWeight
 }
 
 /**
@@ -64,6 +68,7 @@ export interface IconContextValue {
     color?: string
     strokeWidth?: number
     theme?: IconTheme
+    weight?: IconWeight
     presets?: Record<string, IconPreset>
     className?: string
 }

@@ -1,5 +1,6 @@
 import type { IconProps, IconContextValue } from "./iconTypes"
 import { ICON_THEMES, IconTheme } from "./iconThemes"
+import { DEFAULT_ICON_WEIGHT, ICON_WEIGHTS, type IconWeight } from "./iconWeights"
 
 /**
  * Default values for all icons.
@@ -37,6 +38,20 @@ export function resolveTheme(
     )
 }
 
+export function resolveWeight(
+    props: IconProps,
+    preset: any,
+    ctx: IconContextValue
+): IconWeight {
+    return (
+        props.weight ??
+        preset.weight ??
+        ctx.weight ??
+        DEFAULT_ICON_WEIGHT
+    )
+}
+
+
 /**
  * Resolve final size:
  * 1. icon local prop
@@ -58,13 +73,18 @@ export function resolveStrokeWidth(
     props: IconProps,
     preset: any,
     ctx: IconContextValue,
+    weight: IconWeight,
     theme: IconTheme
 ) {
-    return props.strokeWidth ??
+    return (
+        props.strokeWidth ??
         preset.strokeWidth ??
         ctx.strokeWidth ??
-        ICON_THEMES[theme]?.strokeWidth ?? DEFAULT_ICON_CONFIG.strokeWidth
+        ICON_THEMES[theme]?.strokeWidth ??
+        ICON_WEIGHTS[weight]
+    )
 }
+
 
 /**
  * Resolve final color with theme support.

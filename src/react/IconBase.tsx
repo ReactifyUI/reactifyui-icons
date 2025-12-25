@@ -1,7 +1,7 @@
 import React from "react"
 import type { IconProps } from "../utils/iconTypes"
 import { useIconContext } from "./IconProvider"
-import { resolveColor, resolveSize, resolveStrokeWidth, resolveOpacity, resolvePreset, resolveTheme } from "../utils/iconConfig"
+import { resolveColor, resolveSize, resolveStrokeWidth, resolveOpacity, resolvePreset, resolveTheme, resolveWeight } from "../utils/iconConfig"
 import { toPx } from "../utils/helpers"
 
 /**
@@ -10,6 +10,9 @@ import { toPx } from "../utils/helpers"
  * Handles:
  * - sizing
  * - colors
+ * - weights
+ * - strokeWidth
+ * - opacity
  * - stroke/fill control
  * - ARIA roles
  * - accessibility (title/desc)
@@ -23,8 +26,9 @@ export const IconBase = React.forwardRef<SVGSVGElement, IconProps>((props, ref) 
     const preset = resolvePreset(props.preset, ctx.presets)
 
     const theme = resolveTheme(props, preset, ctx)
+    const weight = resolveWeight(props, preset, ctx)
     const size = resolveSize(props, preset, ctx)
-    const strokeWidth = resolveStrokeWidth(props, preset, ctx, theme)
+    const strokeWidth = resolveStrokeWidth(props, preset, ctx, weight, theme)
     const color = resolveColor(props, preset, ctx, theme)
     const opacity = resolveOpacity(theme)
 
