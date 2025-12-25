@@ -1,7 +1,7 @@
 import React from "react"
 import type { IconProps } from "../utils/iconTypes"
 import { useIconContext } from "./IconProvider"
-import { resolveColor, resolveSize, resolveStrokeWidth, resolveOpacity, resolvePreset, resolveTheme, resolveWeight } from "../utils/iconConfig"
+import { resolveColor, resolveSize, resolveStrokeWidth, resolveOpacity, resolvePreset, resolveTheme, resolveWeight, resolveTransform, buildTransformStyle } from "../utils/iconConfig"
 import { toPx } from "../utils/helpers"
 
 /**
@@ -18,6 +18,8 @@ import { toPx } from "../utils/helpers"
  * - accessibility (title/desc)
  * - theming defaults via IconProvider
  * - className + styling
+ * - transform
+ * - transformOrigin
  */
 
 export const IconBase = React.forwardRef<SVGSVGElement, IconProps>((props, ref) => {
@@ -31,6 +33,10 @@ export const IconBase = React.forwardRef<SVGSVGElement, IconProps>((props, ref) 
     const strokeWidth = resolveStrokeWidth(props, preset, ctx, weight, theme)
     const color = resolveColor(props, preset, ctx, theme)
     const opacity = resolveOpacity(theme)
+
+    const transform = resolveTransform(props, preset, ctx)
+    const transformStyle = buildTransformStyle(transform)
+
 
     const {
         decorative = !props.title,
@@ -54,6 +60,11 @@ export const IconBase = React.forwardRef<SVGSVGElement, IconProps>((props, ref) 
             className={className}
             role={decorative ? undefined : "img"}
             aria-hidden={decorative}
+            style={{
+                transform: transformStyle,
+                transformOrigin: transform.transformOrigin,
+                ...props.style
+            }}
             {...rest}
         >
             {title && <title>{title}</title>}

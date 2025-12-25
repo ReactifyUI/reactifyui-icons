@@ -1,4 +1,4 @@
-import type { IconProps, IconContextValue } from "./iconTypes"
+import type { IconProps, IconContextValue, IconFlip } from "./iconTypes"
 import { ICON_THEMES, IconTheme } from "./iconThemes"
 import { DEFAULT_ICON_WEIGHT, ICON_WEIGHTS, type IconWeight } from "./iconWeights"
 
@@ -107,4 +107,67 @@ export function resolveColor(
 
 export function resolveOpacity(theme: IconTheme) {
     return ICON_THEMES[theme]?.opacity ?? 1
+}
+
+export function resolveTransform(
+    props: IconProps,
+    preset: any,
+    ctx: IconContextValue
+) {
+    const rotate =
+        props.rotate ?? preset.rotate ?? ctx.rotate ?? 0
+
+    const scale =
+        props.scale ?? preset.scale ?? ctx.scale ?? 1
+
+    const flip =
+        props.flip ?? preset.flip ?? ctx.flip
+
+    const translate =
+        props.translate ?? preset.translate ?? ctx.translate ?? {}
+
+    const transformOrigin =
+        props.transformOrigin ??
+        preset.transformOrigin ??
+        ctx.transformOrigin ??
+        "center"
+
+    return {
+        rotate,
+        scale,
+        flip,
+        translate,
+        transformOrigin
+    }
+}
+
+export function buildTransformStyle(transform: {
+    rotate: number
+    scale: number
+    flip?: IconFlip
+    translate?: { x?: number; y?: number }
+}) {
+    const transforms: string[] = []
+
+    if (transform.translate?.x || transform.translate?.y) {
+        const x = transform.translate.x ?? 0
+        const y = transform.translate.y ?? 0
+        transforms.push(`translate(${x}px, ${y}px)`)
+    }
+
+    if (transform.rotate) {
+        transforms.push(`rotate(${transform.rotate}deg)`)
+    }
+
+    if (transform.flip) {
+        if (transform.flip === "horizontal") transforms.push("scaleX(-1)")
+        if (transform.flip === "vertical") transforms.push("scaleY(-1)")
+        if (transform.flip === "both") transforms.push("scale(-1)")
+    }
+
+    if (transform.scale !== 1) {
+        transforms.push(`scale(${transform.scale})`)
+    }
+
+    return transforms.length ? transforms.join(" ") : undefined
 }

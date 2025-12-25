@@ -1,5 +1,50 @@
 import type { IconTheme } from "./iconThemes"
-import type { export IconWeight } from "./iconWeights"
+import type { IconWeight } from "./iconWeights"
+
+
+export type IconFlip = "horizontal" | "vertical" | "both"
+
+export interface IconPreset {
+    size?: number | string
+    color?: string
+    strokeWidth?: number
+    theme?: IconTheme
+    weight?: IconWeight
+    rotate?: number
+    flip?: IconFlip
+    scale?: number
+    translate?: { x?: number; y?: number }
+    transformOrigin?: string
+}
+
+/**
+ * Icon context values (used by IconProvider)
+ */
+export interface IconContextValue {
+    size?: number | string
+    color?: string
+    strokeWidth?: number
+    theme?: IconTheme
+    weight?: IconWeight
+    rotate?: number
+    flip?: IconFlip
+    scale?: number
+    translate?: { x?: number; y?: number }
+    transformOrigin?: string
+    presets?: Record<string, IconPreset>
+    className?: string
+}
+
+export interface IconTransform {
+    rotate?: number
+    flip?: IconFlip
+    scale?: number
+    translate?: {
+        x?: number
+        y?: number
+    }
+    transformOrigin?: string
+}
 
 
 export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
@@ -29,6 +74,12 @@ export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 
     /** Preset name from IconProvider */
     preset?: string
+
+    rotate?: number
+    flip?: IconFlip
+    scale?: number
+    translate?: { x?: number; y?: number }
+    transformOrigin?: string
     /**
      * Accessibility:
      * If the icon is decorative (common), aria-hidden=true is applied.
@@ -49,26 +100,5 @@ export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
     /**
      * Custom classes passed to <svg>.
      */
-    className?: string
-}
-
-export interface IconPreset {
-    size?: number | string
-    color?: string
-    strokeWidth?: number
-    theme?: IconTheme
-    weight?: IconWeight
-}
-
-/**
- * Icon context values (used by IconProvider)
- */
-export interface IconContextValue {
-    size?: number | string
-    color?: string
-    strokeWidth?: number
-    theme?: IconTheme
-    weight?: IconWeight
-    presets?: Record<string, IconPreset>
     className?: string
 }
