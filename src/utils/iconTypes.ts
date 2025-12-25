@@ -1,3 +1,4 @@
+import type { IconAnimation } from "./iconAnimation"
 import type { IconTheme } from "./iconThemes"
 import type { IconWeight } from "./iconWeights"
 
@@ -15,6 +16,7 @@ export interface IconPreset {
     scale?: number
     translate?: { x?: number; y?: number }
     transformOrigin?: string
+    animate?: IconAnimation
 }
 
 /**
@@ -31,6 +33,7 @@ export interface IconContextValue {
     scale?: number
     translate?: { x?: number; y?: number }
     transformOrigin?: string
+    animate?: IconAnimation
     presets?: Record<string, IconPreset>
     className?: string
 }
@@ -101,4 +104,6 @@ export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
      * Custom classes passed to <svg>.
      */
     className?: string
+
+    animate?: IconAnimation
 }

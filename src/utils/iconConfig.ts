@@ -1,6 +1,7 @@
 import type { IconProps, IconContextValue, IconFlip } from "./iconTypes"
 import { ICON_THEMES, IconTheme } from "./iconThemes"
 import { DEFAULT_ICON_WEIGHT, ICON_WEIGHTS, type IconWeight } from "./iconWeights"
+import type { IconAnimation } from "./iconAnimation"
 
 /**
  * Default values for all icons.
@@ -15,6 +16,28 @@ export const DEFAULT_ICON_CONFIG: Required<
     size: 24,
     strokeWidth: 1,
     theme: "default" as IconTheme
+}
+
+const DEFAULT_ANIMATION = {
+    duration: 1,
+    delay: 0,
+    iterationCount: "infinite" as const,
+    timingFunction: "ease-in-out" as const
+}
+
+const ANIMATION_KEYFRAMES: Record<string, string> = {
+    spin: "rui-spin",
+    spinReverse: "rui-spin-reverse",
+    progress: "rui-progress",
+    pulse: "rui-pulse",
+    ping: "rui-ping",
+    bounce: "rui-bounce",
+    shake: "rui-shake",
+    wiggle: "rui-wiggle",
+    float: "rui-float",
+    fade: "rui-fade",
+    slideUp: "rui-slide-up",
+    slideDown: "rui-slide-down"
 }
 
 export function resolvePreset(
@@ -170,4 +193,38 @@ export function buildTransformStyle(transform: {
     }
 
     return transforms.length ? transforms.join(" ") : undefined
+}
+
+
+export function resolveAnimation(
+    props: any,
+    preset: any,
+    ctx: any
+): IconAnimation | undefined {
+    const anim =
+        props.animate ??
+        preset.animate ??
+        ctx.animate
+
+    if (!anim) return undefined
+
+    return {
+        ...DEFAULT_ANIMATION,
+        ...anim
+    }
+}
+
+export function buildAnimationStyle(anim: any) {
+    if (!anim) return undefined
+
+    const name = ANIMATION_KEYFRAMES[anim.type]
+    if (!name) return undefined
+
+    return {
+        animationName: name,
+        animationDuration: `${anim.duration}s`,
+        animationDelay: `${anim.delay}s`,
+        animationIterationCount: anim.iterationCount,
+        animationTimingFunction: anim.timingFunction
+    } as React.CSSProperties
 }
