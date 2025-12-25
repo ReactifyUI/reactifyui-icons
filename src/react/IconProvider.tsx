@@ -1,10 +1,11 @@
 import React, { createContext, useContext } from "react"
 import type { IconContextValue } from "../utils/iconTypes"
+import { IconTheme } from "../utils/iconThemes"
 
 const defaultContext: IconContextValue = {
     size: 24,
     strokeWidth: 1,
-    theme: "light"
+    theme: "default" as IconTheme
 }
 
 // Create the context with no defaults

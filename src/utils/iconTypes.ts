@@ -1,3 +1,6 @@
+import type { IconTheme } from "./iconThemes"
+
+
 export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
     /**
      * Icon size (default comes from IconProvider → 24px)
@@ -18,6 +21,11 @@ export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
      */
     strokeWidth?: number
 
+    /** ReactifyUI theme name */
+    theme?: IconTheme
+
+    /** Preset name from IconProvider */
+    preset?: string
     /**
      * Accessibility:
      * If the icon is decorative (common), aria-hidden=true is applied.
@@ -41,6 +49,13 @@ export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
     className?: string
 }
 
+export interface IconPreset {
+    size?: number | string
+    color?: string
+    strokeWidth?: number
+    theme?: IconTheme
+}
+
 /**
  * Icon context values (used by IconProvider)
  */
@@ -48,6 +63,7 @@ export interface IconContextValue {
     size?: number | string
     color?: string
     strokeWidth?: number
-    theme?: "light" | "dark" | string
+    theme?: IconTheme
+    presets?: Record<string, IconPreset>
     className?: string
 }

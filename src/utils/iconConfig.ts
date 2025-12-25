@@ -1,4 +1,5 @@
 import type { IconProps, IconContextValue } from "./iconTypes"
+import { ICON_THEMES, IconTheme } from "./iconThemes"
 
 /**
  * Default values for all icons.
@@ -6,21 +7,34 @@ import type { IconProps, IconContextValue } from "./iconTypes"
  * - IconProvider does NOT override
  * - Icon component does NOT override
  */
+
 export const DEFAULT_ICON_CONFIG: Required<
     Pick<IconContextValue, "size" | "strokeWidth" | "theme">
 > = {
     size: 24,
     strokeWidth: 1,
-    theme: "light"
+    theme: "default" as IconTheme
 }
 
-/**
- * Mapping themes → default colors.
- * Can be extended or replaced by the developer.
- */
-export const THEME_COLOR_MAP: Record<string, string> = {
-    light: "#000",
-    dark: "#fff"
+export function resolvePreset(
+    presetName: string | undefined,
+    presets: IconContextValue["presets"]
+) {
+    if (!presetName || !presets) return {}
+    return presets[presetName] || {}
+}
+
+export function resolveTheme(
+    props: IconProps,
+    preset: any,
+    ctx: IconContextValue
+): IconTheme {
+    return (
+        props.theme ??
+        preset.theme ??
+        ctx.theme ??
+        DEFAULT_ICON_CONFIG.theme
+    )
 }
 
 /**
@@ -30,42 +44,47 @@ export const THEME_COLOR_MAP: Record<string, string> = {
  * 3. fallback from DEFAULT_ICON_CONFIG
  */
 export function resolveSize(
-    local: IconProps["size"],
-    ctx: IconContextValue["size"]
+    props: IconProps,
+    preset: any,
+    ctx: IconContextValue
 ) {
-    return local ?? ctx ?? DEFAULT_ICON_CONFIG.size
+    return props.size ?? preset.size ?? ctx.size ?? DEFAULT_ICON_CONFIG.size
 }
 
 /**
  * Resolve final stroke width.
  */
 export function resolveStrokeWidth(
-    local: IconProps["strokeWidth"],
-    ctx: IconContextValue["strokeWidth"]
+    props: IconProps,
+    preset: any,
+    ctx: IconContextValue,
+    theme: IconTheme
 ) {
-    return local ?? ctx ?? DEFAULT_ICON_CONFIG.strokeWidth
+    return props.strokeWidth ??
+        preset.strokeWidth ??
+        ctx.strokeWidth ??
+        ICON_THEMES[theme]?.strokeWidth ?? DEFAULT_ICON_CONFIG.strokeWidth
 }
 
 /**
  * Resolve final color with theme support.
  */
 export function resolveColor(
-    local: IconProps["color"],
-    ctxColor: IconContextValue["color"],
-    ctxTheme: IconContextValue["theme"]
+    props: IconProps,
+    preset: any,
+    ctx: IconContextValue,
+    theme: IconTheme
 ) {
-    // 1. Icon-level override
-    if (local) return local
+    return (
+        props.color ??
+        preset.color ??
+        ctx.color ??
+        ICON_THEMES[theme]?.color ??
+        "currentColor"
+    )
+}
 
-    // 2. Provider-level color override
-    if (ctxColor) return ctxColor
 
-    // 3. Theme-based default
-    if (ctxTheme) {
-        const mapped = THEME_COLOR_MAP[ctxTheme]
-        if (mapped) return mapped
-    }
-
-    // 4. Fallback → "currentColor"
-    return "#000"
+export function resolveOpacity(theme: IconTheme) {
+    return ICON_THEMES[theme]?.opacity ?? 1
 }

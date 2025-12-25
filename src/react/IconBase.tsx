@@ -1,14 +1,8 @@
 import React from "react"
 import type { IconProps } from "../utils/iconTypes"
 import { useIconContext } from "./IconProvider"
-import { resolveColor, resolveSize, resolveStrokeWidth } from "../utils/iconConfig"
+import { resolveColor, resolveSize, resolveStrokeWidth, resolveOpacity, resolvePreset, resolveTheme } from "../utils/iconConfig"
 import { toPx } from "../utils/helpers"
-
-// Theme → default color mapping (customizable)
-const THEME_COLORS: Record<string, string> = {
-    light: "#000",
-    dark: "#fff"
-}
 
 /**
  * IconBase
@@ -24,40 +18,38 @@ const THEME_COLORS: Record<string, string> = {
  */
 
 export const IconBase = React.forwardRef<SVGSVGElement, IconProps>((props, ref) => {
-    const {
-        size,
-        color,
-        strokeWidth,
-        decorative = !props.title, // If no title → decorative by default
-        title,
-        desc,
-        className,
-        children,
-        ...rest
-    } = props
 
     const ctx = useIconContext()
+    const preset = resolvePreset(props.preset, ctx.presets)
 
-    const finalSize = resolveSize(size, ctx.size)
-    const finalColor = resolveColor(color, ctx.color, ctx.theme)
-    const finalStrokeWidth = resolveStrokeWidth(strokeWidth, ctx.strokeWidth)
-    const finalClassName = className ?? ctx.className
+    const theme = resolveTheme(props, preset, ctx)
+    const size = resolveSize(props, preset, ctx)
+    const strokeWidth = resolveStrokeWidth(props, preset, ctx, theme)
+    const color = resolveColor(props, preset, ctx, theme)
+    const opacity = resolveOpacity(theme)
 
-    const ariaProps = decorative
-        ? { "aria-hidden": true }
-        : { role: "img", "aria-hidden": false }
+    const {
+        decorative = !props.title,
+        title,
+        desc,
+        children,
+        className,
+        ...rest
+    } = props
 
     return (
         <svg
             ref={ref}
-            width={toPx(finalSize)}
-            height={toPx(finalSize)}
-            stroke={finalColor}
-            strokeWidth={finalStrokeWidth}
+            width={toPx(size)}
+            height={toPx(size)}
+            stroke={color}
+            strokeWidth={strokeWidth}
             fill="none"
+            opacity={opacity}
             viewBox="0 0 24 24"
-            className={finalClassName}
-            {...ariaProps}
+            className={className}
+            role={decorative ? undefined : "img"}
+            aria-hidden={decorative}
             {...rest}
         >
             {title && <title>{title}</title>}
