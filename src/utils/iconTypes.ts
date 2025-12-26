@@ -4,6 +4,15 @@ import type { IconTheme } from "./iconThemes"
 import type { IconWeight } from "./iconWeights"
 import type { IconAnimation } from "./iconAnimation"
 
+type SvgFillProps = Pick<
+    React.SVGAttributes<SVGSVGElement>,
+    | "fill"
+    | "fillOpacity"
+    | "fillRule"
+    | "paintOrder"
+>
+
+
 /* ------------------------------------------------------------------ */
 /* Stroke styling (SVG-native, advanced control)                       */
 /* ------------------------------------------------------------------ */
@@ -37,7 +46,8 @@ export interface IconTranslate {
 
 export interface IconProps
     extends React.SVGAttributes<SVGSVGElement>,
-    SvgStrokeProps {
+    SvgStrokeProps,
+    SvgFillProps {
     /* Size & layout */
     size?: number | string
     className?: string
@@ -71,7 +81,7 @@ export interface IconProps
 /* Preset Configuration                                                */
 /* ------------------------------------------------------------------ */
 
-export interface IconPreset extends SvgStrokeProps {
+export interface IconPreset extends SvgStrokeProps, SvgFillProps {
     /* Size & styling */
     size?: number | string
     color?: string
@@ -96,7 +106,7 @@ export interface IconPreset extends SvgStrokeProps {
 /* IconProvider Context                                                */
 /* ------------------------------------------------------------------ */
 
-export interface IconContextValue extends SvgStrokeProps {
+export interface IconContextValue extends SvgStrokeProps, SvgFillProps {
     /* Global defaults */
     size?: number | string
     color?: string

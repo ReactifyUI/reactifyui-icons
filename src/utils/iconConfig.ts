@@ -276,3 +276,31 @@ export function resolveStrokeProps(
             ctx.shapeRendering
     }
 }
+
+export function resolveFillProps(
+    props: any,
+    preset: any,
+    ctx: any
+) {
+    return {
+        fill:
+            props.fill ??
+            preset.fill ??
+            ctx.fill,
+
+        fillOpacity:
+            props.fillOpacity ??
+            preset.fillOpacity ??
+            ctx.fillOpacity,
+
+        fillRule:
+            props.fillRule ??
+            preset.fillRule ??
+            ctx.fillRule,
+
+        paintOrder:
+            props.paintOrder ??
+            preset.paintOrder ??
+            ctx.paintOrder
+    }
+}
