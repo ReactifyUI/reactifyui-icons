@@ -1,109 +1,121 @@
-import type { IconAnimation } from "./iconAnimation"
+import * as React from "react"
+
 import type { IconTheme } from "./iconThemes"
 import type { IconWeight } from "./iconWeights"
+import type { IconAnimation } from "./iconAnimation"
 
+/* ------------------------------------------------------------------ */
+/* Stroke styling (SVG-native, advanced control)                       */
+/* ------------------------------------------------------------------ */
+
+type SvgStrokeProps = Pick<
+    React.SVGAttributes<SVGSVGElement>,
+    | "strokeLinecap"
+    | "strokeLinejoin"
+    | "strokeMiterlimit"
+    | "strokeDasharray"
+    | "strokeDashoffset"
+    | "strokeOpacity"
+    | "vectorEffect"
+    | "shapeRendering"
+>
+
+/* ------------------------------------------------------------------ */
+/* Transform types                                                     */
+/* ------------------------------------------------------------------ */
 
 export type IconFlip = "horizontal" | "vertical" | "both"
 
-export interface IconPreset {
-    size?: number | string
-    color?: string
-    strokeWidth?: number
-    theme?: IconTheme
-    weight?: IconWeight
-    rotate?: number
-    flip?: IconFlip
-    scale?: number
-    translate?: { x?: number; y?: number }
-    transformOrigin?: string
-    animate?: IconAnimation
+export interface IconTranslate {
+    x?: number
+    y?: number
 }
 
-/**
- * Icon context values (used by IconProvider)
- */
-export interface IconContextValue {
+/* ------------------------------------------------------------------ */
+/* Icon Props (PUBLIC API)                                             */
+/* ------------------------------------------------------------------ */
+
+export interface IconProps
+    extends React.SVGAttributes<SVGSVGElement>,
+    SvgStrokeProps {
+    /* Size & layout */
     size?: number | string
-    color?: string
-    strokeWidth?: number
-    theme?: IconTheme
-    weight?: IconWeight
-    rotate?: number
-    flip?: IconFlip
-    scale?: number
-    translate?: { x?: number; y?: number }
-    transformOrigin?: string
-    animate?: IconAnimation
-    presets?: Record<string, IconPreset>
     className?: string
-}
 
-export interface IconTransform {
-    rotate?: number
-    flip?: IconFlip
-    scale?: number
-    translate?: {
-        x?: number
-        y?: number
-    }
-    transformOrigin?: string
-}
-
-
-export interface IconProps extends React.SVGAttributes<SVGSVGElement> {
-    /**
-     * Icon size (default comes from IconProvider → 24px)
-     * Can be a number (treated as px) or string (e.g. "1.5rem").
-     */
-    size?: number | string
-
-    /**
-     * Icon stroke/fill color.
-     * Accepts any valid CSS color or CSS variable.
-     * Defaults to: currentColor or IconProvider color.
-     */
+    /* Color & styling */
     color?: string
-
-    /**
-     * Stroke width for outline icons.
-     * Default → 2
-     */
     strokeWidth?: number
 
-    /** ReactifyUI theme name */
+    /* Design system */
     theme?: IconTheme
-
     weight?: IconWeight
-
-    /** Preset name from IconProvider */
     preset?: string
 
+    /* Transform */
     rotate?: number
     flip?: IconFlip
     scale?: number
-    translate?: { x?: number; y?: number }
+    translate?: IconTranslate
     transformOrigin?: string
-    /**
-     * Accessibility:
-     * If the icon is decorative (common), aria-hidden=true is applied.
-     * If title is present, decorative=false automatically.
-     */
-    decorative?: boolean
 
-    /**
-     * A11y: Adds <title>
-     */
-    title?: string
-
-    /**
-     * A11y: Adds <desc>
-     */
-    desc?: string
-
-    /**
-     * Custom classes passed to <svg>.
-     */
-    className?: string
-
+    /* Animation (grouped) */
     animate?: IconAnimation
+
+    /* Accessibility */
+    decorative?: boolean
+    title?: string
+    desc?: string
+}
+
+/* ------------------------------------------------------------------ */
+/* Preset Configuration                                                */
+/* ------------------------------------------------------------------ */
+
+export interface IconPreset extends SvgStrokeProps {
+    /* Size & styling */
+    size?: number | string
+    color?: string
+    strokeWidth?: number
+
+    /* Design system */
+    theme?: IconTheme
+    weight?: IconWeight
+
+    /* Transform */
+    rotate?: number
+    flip?: IconFlip
+    scale?: number
+    translate?: IconTranslate
+    transformOrigin?: string
+
+    /* Animation */
+    animate?: IconAnimation
+}
+
+/* ------------------------------------------------------------------ */
+/* IconProvider Context                                                */
+/* ------------------------------------------------------------------ */
+
+export interface IconContextValue extends SvgStrokeProps {
+    /* Global defaults */
+    size?: number | string
+    color?: string
+    strokeWidth?: number
+
+    /* Design system */
+    theme?: IconTheme
+    weight?: IconWeight
+
+    /* Transform */
+    rotate?: number
+    flip?: IconFlip
+    scale?: number
+    translate?: IconTranslate
+    transformOrigin?: string
+
+    /* Animation */
+    animate?: IconAnimation
+
+    /* Presets */
+    presets?: Record<string, IconPreset>
 }

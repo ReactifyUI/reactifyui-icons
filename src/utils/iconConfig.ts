@@ -228,3 +228,51 @@ export function buildAnimationStyle(anim: any) {
         animationTimingFunction: anim.timingFunction
     } as React.CSSProperties
 }
+
+export function resolveStrokeProps(
+    props: any,
+    preset: any,
+    ctx: any
+) {
+    return {
+        strokeLinecap:
+            props.strokeLinecap ??
+            preset.strokeLinecap ??
+            ctx.strokeLinecap,
+
+        strokeLinejoin:
+            props.strokeLinejoin ??
+            preset.strokeLinejoin ??
+            ctx.strokeLinejoin,
+
+        strokeMiterlimit:
+            props.strokeMiterlimit ??
+            preset.strokeMiterlimit ??
+            ctx.strokeMiterlimit,
+
+        strokeDasharray:
+            props.strokeDasharray ??
+            preset.strokeDasharray ??
+            ctx.strokeDasharray,
+
+        strokeDashoffset:
+            props.strokeDashoffset ??
+            preset.strokeDashoffset ??
+            ctx.strokeDashoffset,
+
+        strokeOpacity:
+            props.strokeOpacity ??
+            preset.strokeOpacity ??
+            ctx.strokeOpacity,
+
+        vectorEffect:
+            props.vectorEffect ??
+            preset.vectorEffect ??
+            ctx.vectorEffect,
+
+        shapeRendering:
+            props.shapeRendering ??
+            preset.shapeRendering ??
+            ctx.shapeRendering
+    }
+}

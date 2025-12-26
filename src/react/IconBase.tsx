@@ -1,7 +1,7 @@
 import React from "react"
 import type { IconProps } from "../utils/iconTypes"
 import { useIconContext } from "./IconProvider"
-import { resolveColor, resolveSize, resolveStrokeWidth, resolveOpacity, resolvePreset, resolveTheme, resolveWeight, resolveTransform, buildTransformStyle, resolveAnimation, buildAnimationStyle } from "../utils/iconConfig"
+import { resolveColor, resolveSize, resolveStrokeWidth, resolveOpacity, resolvePreset, resolveTheme, resolveWeight, resolveTransform, buildTransformStyle, resolveAnimation, buildAnimationStyle, resolveStrokeProps } from "../utils/iconConfig"
 import { toPx } from "../utils/helpers"
 
 /**
@@ -40,7 +40,7 @@ export const IconBase = React.forwardRef<SVGSVGElement, IconProps>((props, ref) 
     const animation = resolveAnimation(props, preset, ctx)
     const animationStyle = buildAnimationStyle(animation)
 
-
+    const strokeProps = resolveStrokeProps(props, preset, ctx)
 
     const {
         decorative = !props.title,
@@ -64,6 +64,7 @@ export const IconBase = React.forwardRef<SVGSVGElement, IconProps>((props, ref) 
             className={`rui-animate ${className ?? ""}`}
             role={decorative ? undefined : "img"}
             aria-hidden={decorative}
+            {...strokeProps}
             style={{
                 transform: transformStyle,
                 transformOrigin: transform.transformOrigin,
