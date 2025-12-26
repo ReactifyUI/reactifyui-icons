@@ -3,6 +3,8 @@ import * as React from "react"
 import type { IconTheme } from "./iconThemes"
 import type { IconWeight } from "./iconWeights"
 import type { IconAnimation } from "./iconAnimation"
+import type { IconState } from "./iconState"
+
 
 type SvgFillProps = Pick<
     React.SVGAttributes<SVGSVGElement>,
@@ -70,6 +72,7 @@ export interface IconProps
 
     /* Animation (grouped) */
     animate?: IconAnimation
+    state?: IconState
 
     /* Accessibility */
     decorative?: boolean
@@ -128,4 +131,5 @@ export interface IconContextValue extends SvgStrokeProps, SvgFillProps {
 
     /* Presets */
     presets?: Record<string, IconPreset>
+    states?: Record<IconState, IconPreset>
 }

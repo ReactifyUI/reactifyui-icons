@@ -1,7 +1,8 @@
-import type { IconProps, IconContextValue, IconFlip } from "./iconTypes"
+import type { IconProps, IconContextValue, IconFlip, IconPreset } from "./iconTypes"
 import { ICON_THEMES, IconTheme } from "./iconThemes"
 import { DEFAULT_ICON_WEIGHT, ICON_WEIGHTS, type IconWeight } from "./iconWeights"
 import type { IconAnimation } from "./iconAnimation"
+import type { IconState } from "./iconState"
 
 /**
  * Default values for all icons.
@@ -38,6 +39,15 @@ const ANIMATION_KEYFRAMES: Record<string, string> = {
     fade: "rui-fade",
     slideUp: "rui-slide-up",
     slideDown: "rui-slide-down"
+}
+
+export function resolveStatePreset(
+    state: IconState | undefined,
+    states: Record<IconState, IconPreset> | undefined
+): IconPreset {
+    if (!state || state === "default") return {}
+    if (!states) return {}
+    return states[state] || {}
 }
 
 export function resolvePreset(

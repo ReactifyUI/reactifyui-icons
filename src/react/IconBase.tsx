@@ -14,7 +14,8 @@ import {
     resolveAnimation,
     buildAnimationStyle,
     resolveStrokeProps,
-    resolveFillProps
+    resolveFillProps,
+    resolveStatePreset
 } from "../utils/iconConfig"
 import { toPx } from "../utils/helpers"
 
@@ -39,7 +40,14 @@ import { toPx } from "../utils/helpers"
 export const IconBase = React.forwardRef<SVGSVGElement, IconProps>((props, ref) => {
 
     const ctx = useIconContext()
-    const preset = resolvePreset(props.preset, ctx.presets)
+
+    const basePreset = resolvePreset(props.preset, ctx.presets)
+    const statePreset = resolveStatePreset(props.state, ctx.states)
+
+    const preset = {
+        ...basePreset,
+        ...statePreset
+    }
 
     const theme = resolveTheme(props, preset, ctx)
     const weight = resolveWeight(props, preset, ctx)
