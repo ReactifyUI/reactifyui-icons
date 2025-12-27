@@ -224,19 +224,32 @@ export function resolveAnimation(
     }
 }
 
-export function buildAnimationStyle(anim: any) {
-    if (!anim) return undefined
+export function resolveIconAnimation(
+    animation?: IconAnimation
+): React.CSSProperties | undefined {
+    if (!animation) return
 
-    const name = ANIMATION_KEYFRAMES[anim.type]
-    if (!name) return undefined
+    const {
+        type,
+        duration = 1,
+        delay = 0,
+        iterationCount = "infinite",
+        timingFunction = "linear"
+    } = animation
+
+    const name = ANIMATION_KEYFRAMES[type]
 
     return {
         animationName: name,
-        animationDuration: `${anim.duration}s`,
-        animationDelay: `${anim.delay}s`,
-        animationIterationCount: anim.iterationCount,
-        animationTimingFunction: anim.timingFunction
-    } as React.CSSProperties
+        animationDuration: `${duration}s`,
+        animationDelay: `${delay}s`,
+        animationIterationCount:
+            iterationCount === "infinite"
+                ? "infinite"
+                : String(iterationCount),
+        animationTimingFunction: timingFunction,
+        transformOrigin: "center"
+    }
 }
 
 export function resolveStrokeProps(

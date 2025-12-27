@@ -12,19 +12,23 @@
   "bugs": {
     "url": "https://github.com/ReactifyUI/reactifyui-icons/issues"
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./icons": {
+      "import": "./dist/icons/index.js",
+      "require": "./dist/icons/index.js"
     },
     "./icons/*": {
-      "types": "./dist/types/icons/*.d.ts",
-      "import": "./dist/esm/icons/*.js",
-      "require": "./dist/cjs/icons/*.js"
+      "types": "./dist/icons/*.d.ts",
+      "import": "./dist/icons/*.js",
+      "require": "./dist/icons/*.js"
     }
   },
   "sideEffects": false,
@@ -41,7 +45,7 @@
     "generate:icons": "npm run validate:icons && node scripts/generate-icons.js",
     "generate:registry": "node ./scripts/generate-registry.js",
     "icons": "npm run validate:icons && npm run generate:icons && npm run generate:registry",
-    "build": "npm run clean && npm run icons && tsup src/react/index.ts --dts --format esm,cjs --out-dir dist",
+    "build": "npm run clean && tsup src/react/index.ts --dts --format esm,cjs --out-dir dist",
     "build:rollup": "rollup -c",
     "dev": "npm run icons && tsup src/react/index.ts --watch",
     "test": "vitest",
@@ -84,6 +88,7 @@
     "rollup-plugin-dts": "^6.3.0",
     "size-limit": "^12.0.0",
     "svgo": "^4.0.0",
+    "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "vitest": "^4.0.15"
   }

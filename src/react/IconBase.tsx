@@ -12,13 +12,14 @@ import {
     resolveTransform,
     buildTransformStyle,
     resolveAnimation,
-    buildAnimationStyle,
+    resolveIconAnimation,
     resolveStrokeProps,
     resolveFillProps,
     resolveStatePreset
 } from "../utils/iconConfig"
 import { toPx } from "../utils/helpers"
 import { normalizeSvgChildren } from "../utils/normalizeSvgChildren"
+import { ensureIconAnimations } from "../utils/ensureIconAnimation"
 
 /**
  * IconBase
@@ -60,9 +61,6 @@ export const IconBase = React.forwardRef<SVGSVGElement, IconProps>((props, ref) 
     const transform = resolveTransform(props, preset, ctx)
     const transformStyle = buildTransformStyle(transform)
 
-    const animation = resolveAnimation(props, preset, ctx)
-    const animationStyle = buildAnimationStyle(animation)
-
     const strokeProps = resolveStrokeProps(props, preset, ctx)
 
     const fillProps = resolveFillProps(props, preset, ctx)
@@ -70,12 +68,16 @@ export const IconBase = React.forwardRef<SVGSVGElement, IconProps>((props, ref) 
 
     const {
         decorative = !props.title,
+        animate,
         title,
         desc,
         children,
         className,
         ...rest
     } = props
+
+    ensureIconAnimations()
+    const animationStyle = resolveIconAnimation(animate)
 
     return (
         <svg
