@@ -18,6 +18,7 @@ import {
     resolveStatePreset
 } from "../utils/iconConfig"
 import { toPx } from "../utils/helpers"
+import { normalizeSvgChildren } from "../utils/normalizeSvgChildren"
 
 /**
  * IconBase
@@ -100,7 +101,7 @@ export const IconBase = React.forwardRef<SVGSVGElement, IconProps>((props, ref) 
         >
             {title && <title>{title}</title>}
             {desc && <desc>{desc}</desc>}
-            {children}
+            {normalizeSvgChildren(children)}
         </svg>
     )
 })
