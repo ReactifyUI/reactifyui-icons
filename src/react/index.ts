@@ -1,6 +1,7 @@
 // Export Icon Provider + IconBase
 export { default as IconProvider } from "./IconProvider"
 export { default as IconBase } from "./IconBase"
+export { IconStack } from "./IconStack"
 
 // Export the entire icon set
 export * from "./icons"
