@@ -1,0 +1,13 @@
+
+import React from "react";
+import IconBase from "../IconBase";
+
+const HomeX = (props: import("../../utils/iconTypes").IconProps) => {
+  return (
+    <IconBase {...props}>
+      <path d="M4 12.5 12 5l8 7.5V19a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1z" /><path d="m10 10 4 4m0-4-4 4" />
+    </IconBase>
+  );
+};
+
+export default HomeX;

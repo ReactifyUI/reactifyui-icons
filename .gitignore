@@ -9,6 +9,7 @@ private-svgs/
 raw-svgs/
 src/styles/
 *.svg
+src/data/
 
 # ---------------------------------
 # Node + Package Manager Files

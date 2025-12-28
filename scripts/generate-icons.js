@@ -9,7 +9,8 @@ import path from "path"
 import fg from "fast-glob"
 import { optimize } from "svgo"
 import { transform } from "@svgr/core"
-import { toComponentName, stripSvgSizeAttributes, logInfo, logSuccess, extractInnerSvg } from "./helpers.js"
+import { toComponentName, logInfo, logSuccess, extractInnerSvg, stripSvgSizeAttributes } from "./helpers.js"
+import { normalizeSvg } from "./normalizeSvg.js"
 
 const RAW_SVG_DIR = path.resolve("private-svgs")
 const OUTPUT_DIR = path.resolve("src/react/icons")
@@ -46,17 +47,20 @@ async function generateIcons() {
 
     for (const file of files) {
         const fullPath = path.join(RAW_SVG_DIR, file)
-        const svg = await fs.readFile(fullPath, "utf8")
+        let svg = await fs.readFile(fullPath, "utf8")
 
         // Remove inline width/height
-        const cleanedSvg = stripSvgSizeAttributes(svg)
+        svg = stripSvgSizeAttributes(svg)
 
-        // Optimize SVG
-        const optimizedSvg = optimize(cleanedSvg, {
+        svg = normalizeSvg(svg)
+
+        // Optimize SVG (SVGO handles dimension removal)
+        const optimizedSvg = optimize(svg, {
             multipass: true,
             plugins: [
                 "removeComments",
                 "removeMetadata",
+                "removeDimensions",
                 { name: "convertColors", params: { currentColor: true } }
             ]
         }).data

@@ -20,8 +20,9 @@ export function toComponentName(filename) {
  */
 export function stripSvgSizeAttributes(svg) {
     return svg
-        .replace(/width="[^"]*"/gi, "")
-        .replace(/height="[^"]*"/gi, "")
+        .replace(/\s+width="[^"]*"/gi, "")
+        .replace(/\s+height="[^"]*"/gi, "")
+        .trim()
 }
 
 /**
