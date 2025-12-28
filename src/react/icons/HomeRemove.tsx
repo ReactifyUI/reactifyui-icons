@@ -5,7 +5,7 @@ import IconBase from "../IconBase";
 const HomeRemove = (props: import("../../utils/iconTypes").IconProps) => {
   return (
     <IconBase {...props}>
-      <path d="m4 12 8-7 8 7v7a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z" /><path d="M10 12h4" />
+      <path d="M4 12 12 5l8 7v7a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" /><path d="M10 12h4" fill="none" stroke="currentColor" />
     </IconBase>
   );
 };

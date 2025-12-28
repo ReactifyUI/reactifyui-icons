@@ -1,5 +1,3 @@
-
-
 /**
  * Convert filename → PascalCase component name.
  * "home.svg" → "Home"
@@ -7,11 +5,11 @@
  * "user_profile.svg" → "UserProfile"
  */
 export function toComponentName(filename) {
-    return filename
-        .replace(/\.svg$/i, "")
-        .split(/[-_ ]+/)
-        .map(part => part.charAt(0).toUpperCase() + part.slice(1))
-        .join("")
+  return filename
+    .replace(/\.svg$/i, '')
+    .split(/[-_ ]+/)
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join('')
 }
 
 /**
@@ -19,10 +17,15 @@ export function toComponentName(filename) {
  * We always control size via props.
  */
 export function stripSvgSizeAttributes(svg) {
-    return svg
-        .replace(/\s+width="[^"]*"/gi, "")
-        .replace(/\s+height="[^"]*"/gi, "")
-        .trim()
+  // Only remove width/height from the opening <svg> tag, preserve width/height on child elements (like <rect>, <circle>) which are essential for rendering.
+  return svg
+    .replace(/<svg([^>]*)>/i, (match, attrs) => {
+      const cleaned = attrs
+        .replace(/\s+width="[^"]*"/gi, '')
+        .replace(/\s+height="[^"]*"/gi, '')
+      return `<svg${cleaned}>`
+    })
+    .trim()
 }
 
 /**
@@ -30,30 +33,29 @@ export function stripSvgSizeAttributes(svg) {
  * <svg> ... </svg>
  */
 export function extractSvgContent(svg) {
-    return svg
-        .replace(/<svg[^>]*>/i, "")
-        .replace(/<\/svg>/i, "")
-        .trim()
+  return svg
+    .replace(/<svg[^>]*>/i, '')
+    .replace(/<\/svg>/i, '')
+    .trim()
 }
 
 // Extract inner SVG content using REGEX (most stable method)
 export function extractInnerSvg(jsx) {
-    const match = jsx.match(/<svg[^>]*>([\s\S]*?)<\/svg>/);
-    return match ? match[1].trim() : "";
+  const match = jsx.match(/<svg[^>]*>([\s\S]*?)<\/svg>/)
+  return match ? match[1].trim() : ''
 }
 
 /**
  * Used for logging generator results in a consistent format.
  */
 export function logInfo(msg) {
-    console.log(`🔹 ${msg}`)
+  console.log(`🔹 ${msg}`)
 }
 
 export function logSuccess(msg) {
-    console.log(`✅ ${msg}`)
+  console.log(`✅ ${msg}`)
 }
 
 export function logError(msg) {
-    console.error(`❌ ${msg}`)
+  console.error(`❌ ${msg}`)
 }
-
