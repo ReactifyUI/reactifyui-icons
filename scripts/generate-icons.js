@@ -20,14 +20,14 @@ import {
 const RAW_SVG_DIR = path.resolve('private-svgs')
 const OUTPUT_DIR = path.resolve('src/react/icons')
 
-function wrapWithIconBase(componentName, jsxContent) {
+function wrapWithIconBase(componentName, jsxContent, viewBox) {
   return `
 import React from "react";
 import IconBase from "../IconBase";
 
 const ${componentName} = (props: import("../../utils/iconTypes").IconProps) => {
   return (
-    <IconBase {...props}>
+    <IconBase viewBox="${viewBox}" {...props}>
       ${jsxContent}
     </IconBase>
   );
@@ -90,7 +90,33 @@ async function generateIcons() {
       .replace(/\scolor="[^"]*"/gi, '')
 
     // Use normalized SVG for further processing
-    const finalOptimizedSvg = normalizedSvg
+    let finalOptimizedSvg = normalizedSvg
+
+    // For outlined icons: if an element has a stroke but no fill attribute, set fill="none"
+    // This ensures shapes intended to be stroked don't get a default fill color.
+    finalOptimizedSvg = finalOptimizedSvg.replace(
+      /<(path|rect|circle|ellipse|polygon|polyline|line)([^>]*)>/gi,
+      (match, tag, attrs) => {
+        // If there's already a fill attribute, leave unchanged
+        if (/\bfill=/i.test(attrs)) return match
+        // If there's a stroke attribute, add fill="none"
+        if (/\bstroke=/i.test(attrs)) {
+          // Handle self-closing tags: attrs may end with '/'
+          if (/\/\s*$/.test(attrs)) {
+            // remove trailing slash from attrs, add fill and close as self-closing
+            const cleaned = attrs.replace(/\/\s*$/, '')
+            return `<${tag}${cleaned} fill="none" />`
+          }
+          // Normal opening tag
+          return `<${tag}${attrs} fill="none">`
+        }
+        return match
+      }
+    )
+
+    // Extract viewBox from original SVG markup (fallback to 0 0 24 24)
+    const viewBoxMatch = svg.match(/<svg[^>]*viewBox="([^"]+)"/i)
+    const viewBox = viewBoxMatch ? viewBoxMatch[1] : '0 0 24 24'
 
     const componentName = toComponentName(file)
 
@@ -109,7 +135,7 @@ async function generateIcons() {
     const innerContent = extractInnerSvg(jsxConverted)
 
     // Wrap with IconBase
-    const finalComponent = wrapWithIconBase(componentName, innerContent)
+    const finalComponent = wrapWithIconBase(componentName, innerContent, viewBox)
 
     // Save to src/react/icons
     await fs.outputFile(path.join(OUTPUT_DIR, `${componentName}.tsx`), finalComponent)
