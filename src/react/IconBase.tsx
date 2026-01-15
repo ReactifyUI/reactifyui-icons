@@ -65,7 +65,7 @@ export const IconBase = React.forwardRef<SVGSVGElement, IconProps>((props, ref) 
   const fillProps = resolveFillProps(props, preset, ctx)
 
   const {
-    decorative = !props.title,
+    decorative = !props.title && !(props as any)['aria-label'],
     title,
     desc,
     children,

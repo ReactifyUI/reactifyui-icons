@@ -10,6 +10,7 @@ raw-svgs/
 src/styles/
 *.svg
 src/data/
+src/react/icons/
 
 # ---------------------------------
 # Node + Package Manager Files
