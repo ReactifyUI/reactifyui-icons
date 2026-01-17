@@ -6,7 +6,7 @@
 
 ### **Modern, Beautiful & Fully Customizable React Icon Library**
 
-A next-generation icon system for React — featuring outline, fill, duotone, animated, and decorative styles.  
+A next-generation icon system for React — featuring system and build UI projects.  
 Designed for modern apps, design systems, dashboards, SaaS platforms, and enterprise UIs.
 
 **Free Forever · MIT Licensed · TypeScript Native**
@@ -25,12 +25,12 @@ Designed for modern apps, design systems, dashboards, SaaS platforms, and enterp
 
 # ✨ Features
 
-- 🎯 **Beautiful Icon Packs** — Outline, Fill, Duotone, Animated & Decorative variants  
+- 🎯 **Beautiful Icon Category** — More than 60+ category and 1500+ icons. 
 - ⚛️ **React + TypeScript Native** — Auto-complete, IntelliSense & full typings  
 - 🚀 **Tree-Shakable** — Import exactly what you need; zero bloat  
-- 🎨 **Full Customization** — Control size, color, strokeWidth, variants & animations  
-- 🧩 **Global IconProvider** — Centralized theming & configuration  
-- 🌗 **Theme Support** — Light/Dark + design-token compatible  
+- 🎨 **Full Customization** — Control size, color, presets, strokeWidth, variants & animations  
+- 🧩 **Global IconProvider** — Centralized theming, presets & configuration  
+- 🌗 **Theme Support** — Light/Dark + design-token compatible 
 - ♿ **ARIA-Friendly** — Accessible icons with title, desc, role & hidden behavior  
 - ⚙️ **Automatic SVG → React Converter**  
 - 🔥 **SVGO Optimized** — Minimal file size & blazing-fast performance  
@@ -48,7 +48,3 @@ yarn add reactifyui-icons
 # or
 pnpm add reactifyui-icons
 ```
-
-- 💖 GitHub Sponsors: https://github.com/sponsors/<your-username>
-- ☕ Buy Me a Coffee: https://www.buymeacoffee.com/<your-username>
-- 🎉 Patreon: https://patreon.com/<your-username>
