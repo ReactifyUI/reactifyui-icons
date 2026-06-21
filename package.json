@@ -21,6 +21,11 @@
       "import": "./dist/index.js",
       "require": "./dist/index.js"
     },
+    "./dynamic": {
+      "types": "./dist/DynamicIcon.d.ts",
+      "import": "./dist/DynamicIcon.js",
+      "require": "./dist/DynamicIcon.js"
+    },
     "./icons": {
       "import": "./dist/icons/index.js",
       "require": "./dist/icons/index.js"
@@ -44,11 +49,12 @@
     "validate:icons": "node ./scripts/validate-icons.js",
     "generate:icons": "npm run validate:icons && node scripts/generate-icons.js",
     "generate:icons:index": "node scripts/generate-icons-index.js",
+    "generate:lazy:map": "node scripts/generate-lazy-map.js",
     "generate:registry": "node ./scripts/generate-registry.js",
-    "icons": "npm run validate:icons && npm run generate:icons && npm run generate:icons:index && npm run generate:registry",
-    "build": "npm run clean && npm run icons && tsup src/react/index.ts --dts --format esm,cjs --out-dir dist",
+    "icons": "npm run validate:icons && npm run generate:icons && npm run generate:icons:index && npm run generate:lazy:map && npm run generate:registry",
+    "build": "npm run clean && npm run icons && tsup src/react/index.ts src/react/DynamicIcon.tsx \"src/react/icons/*.tsx\" --dts --format esm,cjs --out-dir dist --no-splitting",
     "build:rollup": "rollup -c",
-    "dev": "npm run icons && tsup src/react/index.ts --watch",
+    "dev": "npm run icons && tsup src/react/index.ts src/react/DynamicIcon.tsx --watch",
     "test": "vitest",
     "lint": "eslint . --ext .ts,.tsx",
     "release": "changeset publish",
