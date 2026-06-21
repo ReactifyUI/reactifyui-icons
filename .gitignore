@@ -86,6 +86,11 @@ coverage/
 # DON’T ADD ANYTHING HERE!
 
 # ---------------------------------
+# Figma Plugin (private — not public)
+# ---------------------------------
+figma-plugin/
+
+# ---------------------------------
 # CI Artifacts
 # ---------------------------------
 *.tgz
