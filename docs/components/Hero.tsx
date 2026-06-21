@@ -27,7 +27,7 @@ export function Hero() {
 
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-6">
           Beautiful icons for{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">
+          <span className="text-brand-600 bg-clip-text bg-gradient-to-r from-brand-400 to-violet-400">
             React
           </span>
         </h1>

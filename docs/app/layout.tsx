@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "ReactifyUI Icons — 1,696 Beautiful React Icons",
+  title: "ReactifyUI Icons — Beautiful React Icons",
   description:
     "Modern, beautiful & fully customizable React icon library. 1,696 SVG icons, tree-shakeable, TypeScript native, zero CSS. Free forever. MIT licensed.",
   keywords: ["react icons", "svg icons", "icon library", "typescript", "reactifyui"],
