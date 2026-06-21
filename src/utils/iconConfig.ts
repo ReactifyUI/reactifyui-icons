@@ -109,14 +109,28 @@ export function resolveStrokeWidth(
     weight: IconWeight,
     theme: IconTheme
 ) {
+    // 1. Explicit local overrides
+    if (props.strokeWidth !== undefined) return props.strokeWidth
+    if (props.weight !== undefined) return ICON_WEIGHTS[props.weight]
+    if (props.theme !== undefined && ICON_THEMES[props.theme]?.strokeWidth !== undefined) {
+        return ICON_THEMES[props.theme].strokeWidth
+    }
+
+    // 2. Preset overrides
+    if (preset.strokeWidth !== undefined) return preset.strokeWidth
+    if (preset.weight !== undefined) return ICON_WEIGHTS[preset.weight]
+    if (preset.theme !== undefined && ICON_THEMES[preset.theme]?.strokeWidth !== undefined) {
+        return ICON_THEMES[preset.theme].strokeWidth
+    }
+
+    // 3. Context overrides / Theme default / Fallback
     return (
-        props.strokeWidth ??
-        preset.strokeWidth ??
         ctx.strokeWidth ??
         ICON_THEMES[theme]?.strokeWidth ??
         ICON_WEIGHTS[weight]
     )
 }
+
 
 
 /**
