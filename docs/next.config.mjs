@@ -1,4 +1,4 @@
-const isProd = process.env.NODE_ENV === "production";
+const isProd = process.env.NODE_ENV === "production"
 
 const nextConfig = {
   output: "export",
@@ -8,6 +8,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-};
+  env: {
+    NEXT_PUBLIC_BASE_PATH: isProd ? "/reactifyui-icons" : "",
+  },
+}
 
-export default nextConfig;
+export default nextConfig

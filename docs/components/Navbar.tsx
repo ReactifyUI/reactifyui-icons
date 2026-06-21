@@ -1,7 +1,8 @@
 "use client"
 import { useState, useEffect } from "react"
 
-const LOGO = process.env.NEXT_PUBLIC_LOGO_URL ?? ""
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? ""
+const LOGO_SRC = `${BASE}/logo.png`
 
 const NAV_LINKS = [
   { label: "Installation", href: "#installation" },
@@ -29,10 +30,8 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo */}
         <a href="#" className={`flex items-center gap-2 font-bold text-lg transition-colors ${scrolled ? "text-gray-900 hover:text-brand-600" : "text-white hover:text-white/80"}`}>
-          {LOGO && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={LOGO} alt="ReactifyUI Icons" width={24} height={34} className="object-contain" style={{ height: 32, width: "auto" }} />
-            )}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={LOGO_SRC} alt="ReactifyUI Icons" width={24} height={34} className="object-contain" style={{ height: 32, width: "auto" }} />
           ReactifyUI Icons
         </a>
 

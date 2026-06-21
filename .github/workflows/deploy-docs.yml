@@ -38,7 +38,6 @@ jobs:
         env:
           NODE_ENV: production
           CI: true
-          NEXT_PUBLIC_LOGO_URL: ${{ secrets.DOCS_LOGO_URL }}
 
       - name: Add .nojekyll (required for GitHub Pages to serve files with underscores)
         run: touch docs/out/.nojekyll
