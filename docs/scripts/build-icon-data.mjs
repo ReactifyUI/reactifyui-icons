@@ -72,8 +72,20 @@ function normaliseSvg(raw) {
 async function run() {
   console.log("🔹 Building icon data for docs...")
 
+  // If running on CI and the file already exists (pre-committed), skip generation
+  if (process.env.CI && await fs.pathExists(OUT)) {
+    console.log("✅ icons-data.json already exists — skipping generation (CI mode)")
+    return
+  }
+
   if (!(await fs.pathExists(SVG_DIR))) {
+    // On CI without private-svgs, the pre-committed file must exist
+    if (await fs.pathExists(OUT)) {
+      console.log("✅ private-svgs not found but icons-data.json exists — using committed data")
+      return
+    }
     console.error("❌ private-svgs/ not found at", SVG_DIR)
+    console.error("   Run this script locally first and commit public/icons-data.json")
     process.exit(1)
   }
 
