@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { label: "API", href: "#api" },
   { label: "Themes", href: "#themes" },
   { label: "Icons", href: "#icons" },
+  { label: "Colors", href: "/colors" },
 ]
 
 export function Navbar() {
@@ -40,7 +41,7 @@ export function Navbar() {
           {NAV_LINKS.map((l) => (
             <a
               key={l.href}
-              href={l.href}
+              href={l.href.startsWith("/") ? `${BASE}${l.href}` : l.href}
               className={`text-sm font-medium transition-colors ${
                 scrolled
                   ? "text-gray-600 hover:text-brand-600"
