@@ -78,6 +78,7 @@ coverage/
 # ---------------------------------
 .vscode/
 .idea/
+.commandcode/
 
 # ---------------------------------
 # Changesets (do NOT ignore .changeset!)
