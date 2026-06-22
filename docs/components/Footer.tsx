@@ -12,7 +12,7 @@ export function Footer() {
               <img src={LOGO_SRC} alt="ReactifyUI Icons" width={26} height={37} className="object-contain" />
             <div>
               <div className="text-white font-semibold text-sm">ReactifyUI Icons</div>
-              <div className="text-xs text-gray-500">v1.0.0 · MIT License</div>
+              <div className="text-xs text-gray-500">v1.1.0 · MIT License</div>
             </div>
           </div>
 
