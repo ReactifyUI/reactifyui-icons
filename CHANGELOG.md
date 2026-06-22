@@ -6,6 +6,34 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## [1.1.0] — 2026-06-22
+
+### ⚡ Performance
+
+- **36% SVG path size reduction** — upgraded SVGO optimisation pipeline with additional plugins: `mergePaths`, `convertPathData`, `convertTransform`, `removeUselessDefs`, `removeEmptyAttrs`, `removeEmptyContainers`, `cleanupNumericValues` (2 decimal precision)
+- **Package size: 3.9 MB → 2.8 MB** (28% smaller compressed tarball)
+- All 1,696 icon components regenerated with optimised SVG paths — no visual changes
+
+### 📖 Documentation
+
+- Added JSDoc hover tooltips to all public API types and components
+  - `IconProps` — every prop documented with types, defaults, and usage examples
+  - `IconTheme` — all 30+ theme tokens with color values
+  - `IconWeight` — stroke-width values per weight
+  - `IconAnimation` / `IconAnimationType` — all 12 animation types with examples
+  - `IconProvider` — full usage examples for presets, states, and global defaults
+  - `DynamicIcon` — when to use vs static imports, fallback usage, full example
+  - `IconPreset`, `IconContextValue`, `IconFlip`, `IconTranslate` — all documented
+
+### 🌐 Docs Site
+
+- Launched documentation website at `https://reactifyui.github.io/reactifyui-icons/`
+- Searchable icon browser with 1,696 icons — click to copy import statement
+- Full API reference, theme tokens, weights, animations, quick start examples
+- Auto-deploys via GitHub Actions on push to `dev`
+
+---
+
 ## [1.0.0] — 2024-06-21
 
 > 🎉 First stable production release of ReactifyUI Icons.
