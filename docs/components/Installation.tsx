@@ -83,6 +83,23 @@ export function Installation() {
           Peer dependencies: <code className="text-gray-600 font-mono">react</code> and{" "}
           <code className="text-gray-600 font-mono">react-dom</code> version 19+
         </p>
+
+        {/* What's new in v1.1.0 */}
+        <div className="mt-8 p-4 rounded-xl bg-brand-50 border border-brand-100 flex items-start gap-3">
+          <span className="text-brand-600 mt-0.5 flex-shrink-0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+            </svg>
+          </span>
+          <div>
+            <p className="text-sm font-semibold text-brand-700 mb-1">What&apos;s new in v1.1.0</p>
+            <ul className="text-sm text-brand-600 space-y-0.5 list-disc list-inside">
+              <li>36% smaller SVG paths — improved SVGO optimisation pipeline</li>
+              <li>Package size reduced from 3.9 MB → 2.8 MB (28% lighter)</li>
+              <li>JSDoc hover tooltips on all props and components in your editor</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   )

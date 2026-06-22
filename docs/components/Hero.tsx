@@ -22,7 +22,7 @@ export function Hero() {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-medium mb-8">
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          v1.0.0 — Free &amp; Open Source
+          v1.1.0 — Free &amp; Open Source
         </div>
 
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight tracking-tight mb-6">
@@ -84,7 +84,7 @@ export function Hero() {
 
         {/* Badges */}
         <div className="flex flex-wrap justify-center gap-2 mt-8">
-          {["MIT Licensed", "TypeScript", "Tree-Shakeable", "Zero CSS", "React 19+"].map((b) => (
+          {["MIT Licensed", "TypeScript", "Tree-Shakeable", "Zero CSS", "React 19+", "28% Lighter"].map((b) => (
             <span key={b} className="px-3 py-1 text-xs font-medium text-white/60 bg-white/5 border border-white/10 rounded-full">
               {b}
             </span>
