@@ -1,14 +1,18 @@
 import type { Metadata } from "next"
 import { ColorCard } from "./ColorCard"
 import { GradientCard } from "./GradientCard"
+import { MultiColorCard } from "./MultiColorCard"
 import {
   BASE_COLORS,
   ADVANCED_COLORS,
+  COOL_FRESH_COLORS,
   SEMANTIC_LIGHT,
   SEMANTIC_DARK,
   THEME_COLORS,
   GRADIENTS,
+  ADVANCED_THEMES,
 } from "../../lib/colors-data"
+import type { MultiColorSection } from "../../lib/colors-data"
 
 export const metadata: Metadata = {
   title: "Color Palettes — ReactifyUI",
@@ -21,9 +25,11 @@ const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? ""
 const SECTIONS = [
   { id: "base", label: "Base Colors" },
   { id: "advanced", label: "Advanced" },
+  { id: "cool-fresh", label: "Cool & Fresh" },
   { id: "semantic-light", label: "Semantic Light" },
   { id: "semantic-dark", label: "Semantic Dark" },
   { id: "themes", label: "Themes" },
+  { id: "advanced-themes", label: "Multi-Color" },
   { id: "gradients", label: "Gradients" },
 ]
 
@@ -181,6 +187,40 @@ export default function ColorsPage() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                   {section.gradients.map((g) => <GradientCard key={g.name} {...g} />)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Cool / Fresh Themes ──────────────────────────────────────────── */}
+        <section id="cool-fresh" className="scroll-mt-20">
+          <SectionHeader emoji="❄️" title="Cool & Fresh Themes" count={COOL_FRESH_COLORS.length}
+            desc="Crisp, cool tones inspired by arctic landscapes, tropical waters, and fresh breezes." />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3">
+            {COOL_FRESH_COLORS.map((c) => <ColorCard key={c.hex + c.name} {...c} />)}
+          </div>
+        </section>
+
+        {/* ── Advanced Multi-Color Themes ──────────────────────────────────── */}
+        <section id="advanced-themes" className="scroll-mt-20">
+          <SectionHeader emoji="🎨" title="Multi-Color Themes"
+            desc="120 curated multi-color palettes across 12 categories — Aurora, Cyberpunk, Retro, Glassmorphism, and more." />
+          <div className="space-y-12">
+            {ADVANCED_THEMES.map((section: MultiColorSection) => (
+              <div key={section.id} id={section.id}>
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-xl">{section.emoji}</span>
+                  <h3 className="text-lg font-bold text-white">{section.title}</h3>
+                  <span className="px-2 py-0.5 text-xs font-medium text-gray-400 bg-white/5 border border-white/10 rounded-full">
+                    {section.themes.length}
+                  </span>
+                </div>
+                <p className="text-sm text-gray-500 mb-4"></p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                  {section.themes.map((theme) => (
+                    <MultiColorCard key={theme.name} name={theme.name} colors={theme.colors} />
+                  ))}
                 </div>
               </div>
             ))}
