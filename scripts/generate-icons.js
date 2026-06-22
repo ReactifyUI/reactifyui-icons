@@ -63,7 +63,18 @@ async function generateIcons() {
         'removeComments',
         'removeMetadata',
         'removeDimensions',
-        { name: 'convertColors', params: { currentColor: true } }
+        'removeUselessDefs',
+        'removeEditorsNSData',
+        'removeEmptyAttrs',
+        'removeEmptyContainers',
+        'mergePaths',
+        'convertPathData',
+        'convertTransform',
+        'removeUnusedNS',
+        'sortDefsChildren',
+        { name: 'convertColors', params: { currentColor: true } },
+        { name: 'cleanupNumericValues', params: { floatPrecision: 2 } },
+        { name: 'cleanupIds', params: { remove: true, minify: true } },
       ]
     }).data
 
